@@ -29,6 +29,14 @@ void CharacterDatabaseConnection::DoPrepareStatements()
         "ig.gemItemId1, ig.gemBonuses1, ig.gemContext1, ig.gemScalingLevel1, ig.gemItemId2, ig.gemBonuses2, ig.gemContext2, ig.gemScalingLevel2, ig.gemItemId3, ig.gemBonuses3, ig.gemContext3, ig.gemScalingLevel3, " \
         "im.fixedScalingLevel, im.artifactKnowledgeLevel"
 
+
+	//Custom Start
+
+	//PLayerlog
+	PrepareStatement(CHAR_INS_PLAYERLOG, "INSERT INTO player_log (charactername,accountname,accountid,action_done,actiondate) VALUES(?,?,?,?, UNIX_TIMESTAMP())", CONNECTION_ASYNC);
+
+	//Custom End
+
     PrepareStatement(CHAR_DEL_QUEST_POOL_SAVE, "DELETE FROM pool_quest_save WHERE pool_id = ?", CONNECTION_ASYNC);
     PrepareStatement(CHAR_INS_QUEST_POOL_SAVE, "INSERT INTO pool_quest_save (pool_id, quest_id) VALUES (?, ?)", CONNECTION_ASYNC);
     PrepareStatement(CHAR_DEL_NONEXISTENT_GUILD_BANK_ITEM, "DELETE FROM guild_bank_item WHERE guildid = ? AND TabId = ? AND SlotId = ?", CONNECTION_ASYNC);

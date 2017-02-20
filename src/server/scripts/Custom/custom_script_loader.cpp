@@ -20,6 +20,18 @@
 
 // The name of this function should match:
 // void Add${NameOfDirectory}Scripts()
+
+//Custom NPC
+void AddSC_helpscripts();
+
+//Custom commands
+void AddSC_helpcommands();
+
 void AddCustomScripts()
 {
+	AddSC_helpscripts();
+
+
+	AddSC_helpcommands();
+
 }

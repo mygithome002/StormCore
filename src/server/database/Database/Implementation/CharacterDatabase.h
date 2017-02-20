@@ -29,6 +29,14 @@ enum CharacterDatabaseStatements
         name for a suiting suffix.
     */
 
+	//Custom Start
+
+	//PlayerLog
+	CHAR_INS_PLAYERLOG,
+	CHAR_SEL_PLAYERLOG,
+
+	//Custom End
+
     CHAR_DEL_QUEST_POOL_SAVE,
     CHAR_INS_QUEST_POOL_SAVE,
     CHAR_DEL_NONEXISTENT_GUILD_BANK_ITEM,
