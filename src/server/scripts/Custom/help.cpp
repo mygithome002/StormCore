@@ -41,6 +41,7 @@ public:
 		CustomPlayerLog * PlayerLog = 0;
 		player->SaveRecallPosition();
 		player->ResurrectPlayer(50.0, false);
+
 	
 		//MOP
 		if (player->GetMapId() == 870) {
@@ -48,12 +49,12 @@ public:
 			{
 			case ALLIANCE:
 				player->TeleportTo(870,924.90f,328.48f,506.28f,3.76f);
-				PlayerLog->insertNewPlayerLog(player->GetSession()->GetPlayerName(), guid, player->GetSession()->GetAccountName(), player->GetSession()->GetAccountId(), "Resurrect Panda Ally!");
+				PlayerLog->insertNewPlayerLog(player->GetSession()->GetPlayerName(), player->GetGUID().GetCounter(), player->GetSession()->GetAccountName(), player->GetSession()->GetAccountId(), "Resurrect Panda Ally!");
 				break;
 
 			case HORDE:
 				player->TeleportTo(870, 1576.48f, 889.80f, 473.60f, 0.56f);
-				PlayerLog->insertNewPlayerLog(player->GetSession()->GetPlayerName(), guid, player->GetSession()->GetAccountName(), player->GetSession()->GetAccountId(), "Resurrect Panda Horde!");
+				PlayerLog->insertNewPlayerLog(player->GetSession()->GetPlayerName(), player->GetGUID().GetCounter(), player->GetSession()->GetAccountName(), player->GetSession()->GetAccountId(), "Resurrect Panda Horde!");
 				break;
 			}
 		}
@@ -64,12 +65,12 @@ public:
 			{
 			case ALLIANCE:
 				player->TeleportTo(1116, 3678.16f, -3841.15f, 44.92f, 3.91f);   
-				PlayerLog->insertNewPlayerLog(player->GetSession()->GetPlayerName(), guid, player->GetSession()->GetAccountName(), player->GetSession()->GetAccountId(), "Resurrect WOD Ally!");
+				PlayerLog->insertNewPlayerLog(player->GetSession()->GetPlayerName(), player->GetGUID().GetCounter(), player->GetSession()->GetAccountName(), player->GetSession()->GetAccountId(), "Resurrect WOD Ally!");
 				break;
 
 			case HORDE:
 				player->TeleportTo(1116, 5291.82f,-4009.21f ,14.49f, 3.05f);
-				PlayerLog->insertNewPlayerLog(player->GetSession()->GetPlayerName(), guid, player->GetSession()->GetAccountName(), player->GetSession()->GetAccountId(), "Resurrect WOD Horde!");
+				PlayerLog->insertNewPlayerLog(player->GetSession()->GetPlayerName(), player->GetGUID().GetCounter(), player->GetSession()->GetAccountName(), player->GetSession()->GetAccountId(), "Resurrect WOD Horde!");
 				break;
 			}
 		}
@@ -77,7 +78,7 @@ public:
 		//LEGION
 		if (player->GetMapId() == 1220) {
 			player->TeleportTo(1220, -828.9f, 4371.95f, 739.25f, 1.88f);
-			PlayerLog->insertNewPlayerLog(player->GetSession()->GetPlayerName(), guid, player->GetSession()->GetAccountName(), player->GetSession()->GetAccountId(), "Resurrect Legion!");
+			PlayerLog->insertNewPlayerLog(player->GetSession()->GetPlayerName(), player->GetGUID().GetCounter(), player->GetSession()->GetAccountName(), player->GetSession()->GetAccountId(), "Resurrect Legion!");
 			return;
 		}
 
