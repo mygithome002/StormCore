@@ -235,7 +235,7 @@ public:
 			if (!reportmsg) {
 				handler->PSendSysMessage("##########################################################");
 				handler->PSendSysMessage("Without entering a valid Questerrormessage, the command cannot be executed!");
-				handler->PSendSysMessage("Syntax: .report quest [Shift-click on Questname] Your Reportmessage.");
+				handler->PSendSysMessage("Syntax: .report quest [Shift-click on Questname], Your Reportmessage.");
 				handler->PSendSysMessage("##########################################################");
 				return true;
 			}
@@ -246,7 +246,7 @@ public:
 			if (!questlogname) {
 				handler->PSendSysMessage("##########################################################");
 				handler->PSendSysMessage("Without entering a valid Quest, the command cannot be executed!");
-				handler->PSendSysMessage("Syntax: .report quest [Shift-click on Questname]");
+				handler->PSendSysMessage("Syntax: .report quest [Shift-click on Questname], Your Reportmessage.");
 				handler->PSendSysMessage("##########################################################");
 				player->GetSession()->SendNotification("Without entering a valid Quest, the command cannot be executed! Syntax: .report quest [Shift-click on Questname] !");
 				return true;
@@ -258,7 +258,7 @@ public:
 			if (eingabe == "") {
 				handler->PSendSysMessage("##########################################################");
 				handler->PSendSysMessage("Without entering a valid Quest, the command cannot be executed!");
-				handler->PSendSysMessage("Syntax: .report quest [Shift-click on Questname]");
+				handler->PSendSysMessage("Syntax: .report quest [Shift-click on Questname], Your Reportmessage.");
 				handler->PSendSysMessage("##########################################################");
 				player->GetSession()->SendNotification("Without entering a valid Quest, the command cannot be executed! Syntax: .report quest [Shift-click on Questname]!");
 				return true;
@@ -268,7 +268,7 @@ public:
 			if (!id) {
 				handler->PSendSysMessage("##########################################################");
 				handler->PSendSysMessage("Without entering a valid Quest, the command cannot be executed!");
-				handler->PSendSysMessage("Syntax: .report quest [Shift-click on Questname]");
+				handler->PSendSysMessage("Syntax: .report quest [Shift-click on Questname], Your Reportmessage.");
 				handler->PSendSysMessage("##########################################################");
 				player->GetSession()->SendNotification("Without entering a valid Quest, the command cannot be executed! Syntax: .report quest [Shift-click on Questname]!");
 				return true;
