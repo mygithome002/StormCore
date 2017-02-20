@@ -37,6 +37,7 @@ public:
 			{ "skipmop", SEC_PLAYER, false, &HandleHelpSkipMopCommand, "" },
 			{ "skipwod", SEC_PLAYER, false, &HandleHelpSkipWodCommand, "" },
 			{ "skiplegion", SEC_PLAYER, false, &HandleHelpSkipLegionCommand, "" },
+			{ "startwod", SEC_PLAYER, false, &HandleHelpStartWodCommand, "" },
 
 		};
 
@@ -50,10 +51,28 @@ public:
 	}
 
 
+	static bool HandleHelpStartWodCommand(ChatHandler* handler, const char* args)
+	{
+
+		Player * player = handler->GetSession()->GetPlayer();
+		CustomPlayerLog * PlayerLog = 0;
+		switch (player->GetTeam())
+		{
+		case ALLIANCE:
+			player->TeleportTo(1116,1848.46f,221.52f,76.36f,4.24f);
+			PlayerLog->insertNewPlayerLog(player->GetSession()->GetPlayerName(), player->GetGUID().GetCounter(), player->GetSession()->GetAccountName(), player->GetSession()->GetAccountId(), "Alliance Garrison used!");
+			break;
+
+		case HORDE:
+			player->TeleportTo(1116, 5584.14f,4599.51f,138.14f,4.61f);
+			PlayerLog->insertNewPlayerLog(player->GetSession()->GetPlayerName(), player->GetGUID().GetCounter(), player->GetSession()->GetAccountName(), player->GetSession()->GetAccountId(), "Horde Garrison used!");
+			break;
+		}
+		return true;
+	};
 
 
-
-	//Gibt dem Eventteam die Moeglichkeit Gutscheine fuer Spieler zu erstellen.
+	
 	static bool HandleHelpSkipCataCommand(ChatHandler* handler, const char* args)
 	{
 		CustomPlayerLog * PlayerLog = 0;
