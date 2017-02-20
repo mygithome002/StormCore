@@ -29,6 +29,14 @@ enum WorldDatabaseStatements
         name for a suiting suffix.
     */
 
+	/*Exi Start*/
+	WORLD_SEL_ITEM_NR,
+	WORLD_SEL_PORT,
+	WORLD_SEL_QUESTID_BY_NAME,
+	WORLD_SEL_QUESTNAME_BY_ID,
+	WORLD_SEL_ITEMNAME_BY_ID,
+	/*Exi END*/
+
     WORLD_SEL_QUEST_POOLS,
     WORLD_DEL_CRELINKED_RESPAWN,
     WORLD_REP_CREATURE_LINKED_RESPAWN,

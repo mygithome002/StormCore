@@ -20,6 +20,7 @@
 #include "Player.h"
 #include "Pet.h"
 #include <Custom/Logic/CustomPlayerLog.h>
+#include <Custom/Logic/CustomCharacterSystem.h>
 
 class helpcommands : public CommandScript
 {
@@ -57,18 +58,21 @@ public:
 	{
 		CustomPlayerLog * PlayerLog = 0;
 		Player* player = handler->GetSession()->GetPlayer();
+		CustomCharacterSystem * CharacterSystem = 0;
+		int guid = CharacterSystem->getGUID(player->GetSession()->GetAccountId());
+
 
 		if (player->getLevel() < 80 || player->getLevel() > 84) {
 			handler->PSendSysMessage("#####################################");
 			handler->PSendSysMessage("The Command can only be executed between Level 80 and 84");
 			handler->PSendSysMessage("#####################################");
-			PlayerLog->insertNewPlayerLog(player->GetSession()->GetPlayerName(), player->GetSession()->GetAccountName(), player->GetSession()->GetAccountId(), "Cata Command used failed. Level problem!");
+			PlayerLog->insertNewPlayerLog(player->GetSession()->GetPlayerName(),guid, player->GetSession()->GetAccountName(), player->GetSession()->GetAccountId(), "Cata Command used failed. Level problem!");
 			return true;
 		}
 
 
 		player->SetLevel(85);
-		PlayerLog->insertNewPlayerLog(player->GetSession()->GetPlayerName(), player->GetSession()->GetAccountName(), player->GetSession()->GetAccountId(), "Cata Command used successful!");
+		PlayerLog->insertNewPlayerLog(player->GetSession()->GetPlayerName(),guid, player->GetSession()->GetAccountName(), player->GetSession()->GetAccountId(), "Cata Command used successful!");
 		return true;
 	};
 
@@ -76,18 +80,19 @@ public:
 	{
 		CustomPlayerLog * PlayerLog = 0;
 		Player* player = handler->GetSession()->GetPlayer();
-
+		CustomCharacterSystem * CharacterSystem = 0;
+		int guid = CharacterSystem->getGUID(player->GetSession()->GetAccountId());
 		if (player->getLevel() < 85 || player->getLevel() > 89) {
 			handler->PSendSysMessage("#####################################");
 			handler->PSendSysMessage("The Command can only be executed between Level 85 and 89");
 			handler->PSendSysMessage("#####################################");
-			PlayerLog->insertNewPlayerLog(player->GetSession()->GetPlayerName(), player->GetSession()->GetAccountName(), player->GetSession()->GetAccountId(), "MOP Command used failed. Level problem!");
+			PlayerLog->insertNewPlayerLog(player->GetSession()->GetPlayerName(),guid, player->GetSession()->GetAccountName(), player->GetSession()->GetAccountId(), "MOP Command used failed. Level problem!");
 			return true;
 		}
 
 
 		player->SetLevel(90);
-		PlayerLog->insertNewPlayerLog(player->GetSession()->GetPlayerName(), player->GetSession()->GetAccountName(), player->GetSession()->GetAccountId(), "MOP Command used successful!");
+		PlayerLog->insertNewPlayerLog(player->GetSession()->GetPlayerName(),guid, player->GetSession()->GetAccountName(), player->GetSession()->GetAccountId(), "MOP Command used successful!");
 		return true;
 	};
 
@@ -96,18 +101,19 @@ public:
 	{
 		CustomPlayerLog * PlayerLog = 0;
 		Player* player = handler->GetSession()->GetPlayer();
-
+		CustomCharacterSystem * CharacterSystem = 0;
+		int guid = CharacterSystem->getGUID(player->GetSession()->GetAccountId());
 		if (player->getLevel() < 90 || player->getLevel() > 99) {
 			handler->PSendSysMessage("#####################################");
 			handler->PSendSysMessage("The Command can only be executed between Level 90 and 99");
 			handler->PSendSysMessage("#####################################");
-			PlayerLog->insertNewPlayerLog(player->GetSession()->GetPlayerName(), player->GetSession()->GetAccountName(), player->GetSession()->GetAccountId(), "WOD Command used failed. Level problem!");
+			PlayerLog->insertNewPlayerLog(player->GetSession()->GetPlayerName(),guid, player->GetSession()->GetAccountName(), player->GetSession()->GetAccountId(), "WOD Command used failed. Level problem!");
 			return true;
 		}
 
 
 		player->SetLevel(100);
-		PlayerLog->insertNewPlayerLog(player->GetSession()->GetPlayerName(), player->GetSession()->GetAccountName(), player->GetSession()->GetAccountId(), "WOD Command used successful!");
+		PlayerLog->insertNewPlayerLog(player->GetSession()->GetPlayerName(),guid, player->GetSession()->GetAccountName(), player->GetSession()->GetAccountId(), "WOD Command used successful!");
 		return true;
 	};
 
@@ -116,18 +122,19 @@ public:
 	{
 		CustomPlayerLog * PlayerLog = 0;
 		Player* player = handler->GetSession()->GetPlayer();
-
+		CustomCharacterSystem * CharacterSystem = 0;
+		int guid = CharacterSystem->getGUID(player->GetSession()->GetAccountId());
 		if (player->getLevel() < 100 || player->getLevel() > 109) {
 			handler->PSendSysMessage("#####################################");
 			handler->PSendSysMessage("The Command can only be executed between Level 100 and 109");
 			handler->PSendSysMessage("#####################################");
-			PlayerLog->insertNewPlayerLog(player->GetSession()->GetPlayerName(), player->GetSession()->GetAccountName(), player->GetSession()->GetAccountId(), "Legion Command used failed. Level problem!");
+			PlayerLog->insertNewPlayerLog(player->GetSession()->GetPlayerName(),guid, player->GetSession()->GetAccountName(), player->GetSession()->GetAccountId(), "Legion Command used failed. Level problem!");
 			return true;
 		}
 
 
 		player->SetLevel(110);
-		PlayerLog->insertNewPlayerLog(player->GetSession()->GetPlayerName(), player->GetSession()->GetAccountName(), player->GetSession()->GetAccountId(), "Legion Command used successful!");
+		PlayerLog->insertNewPlayerLog(player->GetSession()->GetPlayerName(),guid, player->GetSession()->GetAccountName(), player->GetSession()->GetAccountId(), "Legion Command used successful!");
 		return true;
 	};
 
