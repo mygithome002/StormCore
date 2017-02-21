@@ -8040,12 +8040,12 @@ int32 Unit::SpellBaseDamageBonusTaken(SpellSchoolMask schoolMask) const
     return TakenAdvertisedBenefit;
 }
 
-bool Unit::IsSpellCrit(Unit* victim, SpellInfo const* spellProto, SpellSchoolMask schoolMask, WeaponAttackType attackType) const
+bool Unit::IsSpellCrit(Unit* victim, SpellInfo const* spellProto, SpellSchoolMask schoolMask, WeaponAttackType attackType /*= BASE_ATTACK*/) const
 {
     return roll_chance_f(GetUnitSpellCriticalChance(victim, spellProto, schoolMask, attackType));
 }
 
-float Unit::GetUnitSpellCriticalChance(Unit* victim, SpellInfo const* spellProto, SpellSchoolMask schoolMask, WeaponAttackType attackType) const
+float Unit::GetUnitSpellCriticalChance(Unit* victim, SpellInfo const* spellProto, SpellSchoolMask schoolMask, WeaponAttackType attackType /*= BASE_ATTACK*/) const
 {
     //! Mobs can't crit with spells. Player Totems can
     //! Fire Elemental (from totem) can too - but this part is a hack and needs more research
@@ -14080,7 +14080,7 @@ void Unit::SendMoveKnockBack(Player* player, float speedXY, float speedZ, float 
     player->GetSession()->SendPacket(moveKnockBack.Write());
 }
 
-void Unit::KnockbackFrom(float x, float y, float speedXY, float speedZ)
+void Unit::KnockbackFrom(float x, float y, float speedXY, float speedZ, Movement::SpellEffectExtraData const* spellEffectExtraData /*= nullptr*/)
 {
     Player* player = ToPlayer();
     if (!player)
@@ -14094,7 +14094,7 @@ void Unit::KnockbackFrom(float x, float y, float speedXY, float speedZ)
     }
 
     if (!player)
-        GetMotionMaster()->MoveKnockbackFrom(x, y, speedXY, speedZ);
+        GetMotionMaster()->MoveKnockbackFrom(x, y, speedXY, speedZ, spellEffectExtraData);
     else
     {
         float vcos, vsin;
