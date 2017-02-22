@@ -342,57 +342,8 @@ int CustomCharacterSystem::checkPlayerAccountSecurity(int accountid)
 	return security;
 }
 
-void CustomCharacterSystem::givePlayerLevelWithCurrency(Player * player, uint16 cost, uint16 maxlevel, uint32 levelup)
-{
-	if (player->getLevel() <= maxlevel)
-	{
 
-		if (player->HasItemCount(38186, cost, true))
-		{
-			player->SetLevel(player->getLevel() + levelup);
-			player->DestroyItemCount(38186, cost, true);
-			player->GetSession()->SendNotification("Die Level wurden dir gutgeschrieben.");
-			player->PlayerTalkClass->SendCloseGossip();
-			return;
-		}
 
-		else
-		{
-			player->GetSession()->SendNotification("Du hast leider nicht genug Astrale Kredite um dir eine Levelaufwertung zu kaufen.");
-			player->PlayerTalkClass->SendCloseGossip();
-			return;
-		}
-	}
-
-	else
-	{
-		player->GetSession()->SendNotification("Dein Level ist zu hoch.");
-		return;
-	}
-
-}
-
-void CustomCharacterSystem::executeGuildCharacter(Player * player, std::string playerlog, int membercount)
-{
-	CustomPlayerLog * PlayerLog = 0;
-	player->PlayerTalkClass->SendCloseGossip();
-	player->SetLevel(80);
-	player->TeleportTo(0, -792.84, -1607.55, 142.30, 2.33, 0);
-	player->AddItem(20400, 4);
-	player->SetMoney(50000000);
-	player->UpdateSkillsToMaxSkillsForLevel();
-	player->UpdateSkillsForLevel();
-	if (membercount >= 10 && membercount < 25) {
-		//player->LearnDefaultSkill(762, 3);
-	}
-	if (membercount > 25) {
-		//player->LearnDefaultSkill(762, 4);
-	}
-	std::string accountname = "";
-	accountname = CustomCharacterSystem::getAccountName(player->GetSession()->GetAccountId());
-	//PlayerLog->insertNewPlayerLog(player->GetSession()->GetPlayerName(), player->GetGUID(), accountname, player->GetSession()->GetAccountId(), playerlog);
-	player->SaveRecallPosition();
-}
 
 int CustomCharacterSystem::getUnixTimestamp()
 {

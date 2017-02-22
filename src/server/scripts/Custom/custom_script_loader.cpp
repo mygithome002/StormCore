@@ -35,6 +35,10 @@ void AddSC_helpcommands();
 //Custom XP Script
 void AddSC_XPScripts();
 
+
+//Custom Log Script for all logs
+void AddSC_logscript();
+
 void AddCustomScripts()
 {
 	AddSC_helpscripts();
@@ -46,5 +50,7 @@ void AddCustomScripts()
 	AddSC_XPScripts();
 
 	AddSC_helpcommands();
+
+	AddSC_logscript();
 
 }
