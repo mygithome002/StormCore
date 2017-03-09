@@ -29,6 +29,91 @@ void CharacterDatabaseConnection::DoPrepareStatements()
         "ig.gemItemId1, ig.gemBonuses1, ig.gemContext1, ig.gemScalingLevel1, ig.gemItemId2, ig.gemBonuses2, ig.gemContext2, ig.gemScalingLevel2, ig.gemItemId3, ig.gemBonuses3, ig.gemContext3, ig.gemScalingLevel3, " \
         "im.fixedScalingLevel, im.artifactKnowledgeLevel"
 
+
+	/* EXI CUSTOM */
+
+	PrepareStatement(CHAR_SEL_UNIX_TIMESTAMP, "SELECT UNIX_TIMESTAMP(NOW())", CONNECTION_SYNCH);
+	PrepareStatement(CHAR_SEL_CHARACTER_GUID, "SELECT guid from characters where account = ?", CONNECTION_SYNCH);
+
+
+	PrepareStatement(CHAR_SEL_ANTWORTEN_NACH_ANTWORT, "SELECT `id`,`belohnung`,`anzahl` from `antworten` where `antwort` = ?", CONNECTION_SYNCH);
+	PrepareStatement(CHAR_INS_FRAGEN, "INSERT INTO antworten (frage, antwort, belohnung, anzahl) VALUES (?,?,?,?)", CONNECTION_ASYNC);
+	PrepareStatement(CHAR_SEL_FRAGEN_COUNT, "SELECT count(id) from `antworten`", CONNECTION_SYNCH);
+	PrepareStatement(CHAR_SEL_BEANTWORTET, "SELECT `accountid`,`nr` from `beantwortete_fragen` where `accountid` = ? and `nr` = ?", CONNECTION_SYNCH);
+	PrepareStatement(CHAR_INS_BEANTWORTET, "INSERT INTO beantwortete_fragen (accountid, nr) VALUES (?,?)", CONNECTION_ASYNC);
+	PrepareStatement(CHAR_INS_EVENTLOG, "INSERT INTO gm_actions_coupon_details (player,guid, itemid,gutscheincode,anzahl) VALUES (?,?,?,?,?)", CONNECTION_ASYNC);
+	PrepareStatement(CHAR_SEL_COUPON_REWARD, "SELECT ItemID from couponrewards where ID = ?", CONNECTION_SYNCH);
+
+	//Playtime Rewards
+	PrepareStatement(CHAR_INS_PLAYTIME_REWARDS, "INSERT INTO player_playtime_rewards (playtime,charactername,guid) VALUES (?,?,?)", CONNECTION_ASYNC);
+	PrepareStatement(CHAR_SEL_PLAYTIME_REWARDS, "SELECT id, playtime, charactername, guid FROM player_playtime_rewards WHERE playtime = ? AND guid =  ?", CONNECTION_SYNCH);
+
+
+	//Item Codes
+	PrepareStatement(CHAR_SEL_ITEMCODE, "SELECT `code`, `belohnung`, `anzahl`, `benutzt`, `benutztbar` FROM `item_codes` WHERE `code` = ?", CONNECTION_SYNCH);
+	PrepareStatement(CHAR_INS_ITEMCODE, "INSERT INTO `item_codes` (code,belohnung,anzahl,benutzt,benutztbar) VALUES (?,?,?,?,?)", CONNECTION_ASYNC);
+	PrepareStatement(CHAR_INS_ITEMCODEACCOUNT, "INSERT INTO item_codes_account (name,accid,code) Values(?,?,?)", CONNECTION_ASYNC);
+	PrepareStatement(CHAR_SEL_ITEMCODEACCOUNT, "SELECT accid, code from item_codes_account where code = ? and accid = ?", CONNECTION_SYNCH);
+	PrepareStatement(CHAR_UPD_ITEMCODEUSED, "UPDATE item_codes SET benutzt = ? WHERE code = ?", CONNECTION_ASYNC);
+
+
+
+
+	//FRAGEN EP
+	PrepareStatement(CHAR_SEL_FRAGEN, "SELECT `frage`, `antwort`,`belohnung`, `anzahl` from antworten WHERE `id` = ?", CONNECTION_SYNCH);
+	PrepareStatement(CHAR_SEL_FRAGEN_HIGH_ID, "SELECT  max(id) FROM antworten;", CONNECTION_SYNCH);
+	PrepareStatement(CHAR_SEL_CHARACTER_BYNAME, "SELECT guid,account,name,level,totaltime FROM characters where name = ?", CONNECTION_SYNCH);
+	PrepareStatement(CHAR_UPD_ACCOUNT_ID, "UPDATE `characters` SET `account`= ? WHERE `guid`= ?", CONNECTION_ASYNC);
+
+	//PLayerlog
+	PrepareStatement(CHAR_INS_PLAYERLOG, "INSERT INTO player_log (charactername,guid,accountname,accountid,action_done,actiondate) VALUES(?,?,?,?,?, UNIX_TIMESTAMP())", CONNECTION_ASYNC);
+	PrepareStatement(CHAR_INS_CURRENCYLOG, "INSERT INTO characters_currencylog (charactername,characterguid,accountname, accountid,currencyitemid,amount,buydate,buy_action) VALUES (?,?,?,?,?,?,UNIX_TIMESTAMP(),?)", CONNECTION_ASYNC);
+
+	//REPORT QUEST SYSTEM
+	PrepareStatement(CHAR_INS_REPORT_QUEST, "Insert into `reported_quest` (questname, questid, anzahl, aktiv) VALUES (?,?,?,?)", CONNECTION_ASYNC);
+	PrepareStatement(CHAR_SEL_REPORT_QUEST, "SELECT questid, anzahl, aktiv from reported_quest where questid = ?", CONNECTION_SYNCH);
+	PrepareStatement(CHAR_UPD_REPORT_QUEST_SET_QUEST_ACTIVE, "Update reported_quest SET aktiv = ? where questid = ?", CONNECTION_ASYNC);
+	PrepareStatement(CHAR_UPD_REPORT_QUEST_COUNT, "Update reported_quest SET anzahl = ? where questid = ?", CONNECTION_ASYNC);
+	PrepareStatement(CHAR_UPD_REPORT_QUEST_STATE, "Update reported_quest SET aktiv = ? where questid = ?", CONNECTION_ASYNC);
+	PrepareStatement(CHAR_INS_PLAYER_REPORT_QUEST, "INSERT into reported_quest_player (playername,guildname,guid,accid, reported_quest_id) Values (?,?,?,?,?)", CONNECTION_ASYNC);
+	PrepareStatement(CHAR_SEL_PLAYER_REPORT_QUEST, "SELECT accid from reported_quest_player where accid = ? and reported_quest_id = ?", CONNECTION_SYNCH);
+	PrepareStatement(CHAR_INS_REPORT_ERROR_MESSAGE, "INSERT INTO reported_quest_error_messages (charactername, guid, accountname,accountid,questid,error_message) VALUES (?,?,?,?,?,?)", CONNECTION_ASYNC);
+
+
+	//CUSTOM XP
+	PrepareStatement(CHAR_INS_CUSTOM_XP, "INSERT INTO custom_xp (charactername, characterguid,xp_value) VALUES (?,?,?)", CONNECTION_ASYNC);
+	PrepareStatement(CHAR_SEL_CUSTOM_XP, "SELECT charactername from custom_xp where characterguid = ?", CONNECTION_SYNCH);
+	PrepareStatement(CHAR_SEL_CUSTOM_XP_VALUE, "SELECT xp_value from custom_xp where characterguid = ?", CONNECTION_SYNCH);
+	PrepareStatement(CHAR_UPD_CUSTOM_XP, "Update custom_xp  set xp_value = ? where characterguid = ?", CONNECTION_ASYNC);
+	PrepareStatement(CHAR_SEL_GUILD_LEADER, "SELECT leaderguid from `guild` where `guildid` = ?", CONNECTION_SYNCH);
+
+
+
+	//FirstCharacter
+	PrepareStatement(CHAR_SEL_PLAYER_FIRST_CHARACTER_COUNT, "SELECT count(account) from player_first_character_count where account = ?", CONNECTION_SYNCH);
+	PrepareStatement(CHAR_INS_PLAYER_FIRST_CHARACTER_COUNT, "INSERT INTO player_first_character_count (guid,charname, account, accname, time, guildid,ip) VALUES (?,?,?,?,UNIX_TIMESTAMP(),?,?)", CONNECTION_ASYNC);
+	PrepareStatement(CHAR_SEL_FIRST_CHAR_PLAYERLOG, "SELECT guid,action_done,actiondate from player_log where accountid = ? and action_done = ?", CONNECTION_SYNCH);
+	PrepareStatement(CHAR_SEL_GUILD_CREATE_DATE, "SELECT createdate from guild where guildid = ?", CONNECTION_SYNCH);
+	PrepareStatement(CHAR_SEL_GUILD_MEMBER_COUNT, "SELECT count(guid) FROM guild_member WHERE guildid = ?", CONNECTION_SYNCH);
+	PrepareStatement(CHAR_UPD_FIRSTCHARACTER_TO_ZEROACCOUNT, "UPDATE characters set account = 0 , name = ? where guid = ?", CONNECTION_ASYNC);
+	PrepareStatement(CHAR_CHECK_IF_PLAYER_HAS_ALREADY_CHARACTERS, "Select count(account) from characters where account = ?", CONNECTION_SYNCH);
+	PrepareStatement(CHAR_DEL_FIRST_CHAR_PLAYERLOG, "Delete from player_log where accountid = ? and action_done = ?", CONNECTION_ASYNC);
+
+	//FORBIDDEN QUEST OR ID
+	PrepareStatement(CHAR_SEL_QUEST_FROM_FORBIDDEN_TABLE, "Select questid from forbidden_quest_or_item  where questid = ?", CONNECTION_SYNCH);
+	PrepareStatement(CHAR_SEL_ITEM_FROM_FORBIDDEN_TABLE, "Select itemid from forbidden_quest_or_item  where itemid = ?", CONNECTION_SYNCH);
+	PrepareStatement(CHAR_INS_QUEST_IN_FORBIDDEN_TABLE, "INSERT into forbidden_quest_or_item (questid) VALUES (?)", CONNECTION_ASYNC);
+	PrepareStatement(CHAR_INS_ITEM_IN_FORBIDDEN_TABLE, "INSERT into forbidden_quest_or_item (itemid) VALUES (?)", CONNECTION_ASYNC);
+
+	//GM REPORTS
+	PrepareStatement(CHAR_INS_GM_ACTION, "INSERT INTO gm_actions (charactername,characterID, accountname, accountID, action_done,action_timestamp) VALUES (?,?,?,?,?,UNIX_TIMESTAMP())", CONNECTION_ASYNC);
+	PrepareStatement(CHAR_INS_GM_ACTION_PLAYER_COUNT, "INSERT into gm_actions_player_count (accountid, counter) VALUES (?,?)", CONNECTION_ASYNC);
+	PrepareStatement(CHAR_SEL_GM_ACTION_PLAYER_COUNT, "Select id,accountid, counter from gm_actions_player_count where accountid = ?", CONNECTION_SYNCH);
+	PrepareStatement(CHAR_UPD_GM_ACTION_PLAYER_COUNT, "Update gm_actions_player_count set counter = ? where id = ?", CONNECTION_ASYNC);
+
+	/* CUSTOM ENDE */
+
+
     PrepareStatement(CHAR_DEL_QUEST_POOL_SAVE, "DELETE FROM pool_quest_save WHERE pool_id = ?", CONNECTION_ASYNC);
     PrepareStatement(CHAR_INS_QUEST_POOL_SAVE, "INSERT INTO pool_quest_save (pool_id, quest_id) VALUES (?, ?)", CONNECTION_ASYNC);
     PrepareStatement(CHAR_DEL_NONEXISTENT_GUILD_BANK_ITEM, "DELETE FROM guild_bank_item WHERE guildid = ? AND TabId = ? AND SlotId = ?", CONNECTION_ASYNC);

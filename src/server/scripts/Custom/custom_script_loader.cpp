@@ -20,6 +20,37 @@
 
 // The name of this function should match:
 // void Add${NameOfDirectory}Scripts()
+
+//Custom NPC
+void AddSC_helpscripts();
+
+//CUstom Reportcommands
+void AddSC_ex_reportcommands();
+
+//Custom XP Commands
+void AddSC_ex_customxpcommands();
+//Custom commands
+void AddSC_helpcommands();
+
+//Custom XP Script
+void AddSC_XPScripts();
+
+
+//Custom Log Script for all logs
+void AddSC_logscript();
+
 void AddCustomScripts()
 {
+	AddSC_helpscripts();
+
+	AddSC_ex_reportcommands();
+
+	AddSC_ex_customxpcommands();
+
+	AddSC_XPScripts();
+
+	AddSC_helpcommands();
+
+	AddSC_logscript();
+
 }

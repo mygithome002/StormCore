@@ -38,6 +38,7 @@
 #    CURRENCIES SETTINGS
 #    PACKET SPOOF PROTECTION SETTINGS
 #    METRIC SETTINGS
+#	 XP Rates
 #
 ###################################################################################################
 
@@ -4015,6 +4016,25 @@ Metric.ConnectionInfo = "127.0.0.1;8086;worldserver"
 #
 
 Metric.OverallStatusInterval = 1
+
+#
+###################################################################################################
+
+###################################################################################################
+#CUSTOM XP FOR PLAYER
+#		
+#
+#		Activate custom XP for every Player. Use with command .xprate [Your Rate]. Maximum is 5. Minimun is 1.
+#		Default:     0 - (Disabled)
+#                    1 - (Enabled)
+#
+#
+
+Custom.XP = 1
+
+Custom.XP.MinRate = 1
+
+Custom.XP.MaxRate = 5
 
 #
 ###################################################################################################
